@@ -7,13 +7,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="PINCODE_DB",
+@Table(name="PINCODES",
 uniqueConstraints = {
 		@UniqueConstraint(columnNames = "PINCODE")
+})
+@NamedQueries({
+	@NamedQuery(name= "GET.PINCODE", query = "SELECT p FROM Pincode p WHERE p.pincode = :pincode"),
+	@NamedQuery(name = "DEL.PINCODE", query = "DELETE FROM Pincode p WHERE p.pincode = :pincode"),
+	@NamedQuery(name = "GET.DISTRICT", query = "SELECT p FROM Pincode p WHERE p.district = :district"),
+	@NamedQuery(name = "GET.STATE" , query = "SELECT p FROM Pincode p WHERE p.state = :state"),
+	@NamedQuery(name = "GET.CIRCLE", query = "SELECT p FROM Pincode p WHERE p.circle = :cirlce")
 })
 public class Pincode implements Serializable{
 

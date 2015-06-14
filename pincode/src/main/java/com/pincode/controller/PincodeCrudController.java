@@ -3,6 +3,7 @@ package com.pincode.controller;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +22,7 @@ public class PincodeCrudController {
 	@Autowired
 	private IPincodeCrudService pincodeCrudService;
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/createOrUpdate", method = RequestMethod.POST)
 	@ResponseBody
 	public String createNewPincode(PincodePojo pincodePojo){
 		GenericResponse response = new GenericResponse();
@@ -30,8 +31,23 @@ public class PincodeCrudController {
 				response.setError(true);
 				response.setMessage("Enter All Mandatory Params");
 			}else{
-				
+				getPincodeCrudService().savePincode(pincodePojo);
+				response.setMessage("Your Pincode created successfully !!");
 			}
+		}catch(Exception e){
+			logger.error("Exception occured : " + e.getMessage());
+			response.setError(true);
+			response.setMessage(e.getMessage());
+		}
+		return JacksonUtil.getResponseAsString(response);
+	}
+	
+	@RequestMapping(value = "/delete/{pincode}", method = RequestMethod.GET)
+	@ResponseBody
+	public String deletePincode(@PathVariable("pincode") Integer pincode){
+		GenericResponse response = new GenericResponse();
+		try{
+			
 		}catch(Exception e){
 			logger.error("Exception occured : " + e.getMessage());
 			response.setError(true);
