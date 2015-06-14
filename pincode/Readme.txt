@@ -9,3 +9,5 @@ Libraries Used:
 7) After build it will create war which we will deploy on web server
 8) API Response will serve as JSON
 9) For JSON we used Jackson
+10) Page Context of this project is pc i.e war will be created with name pc.war and so, url will be like:
+localhost:8080/pc
